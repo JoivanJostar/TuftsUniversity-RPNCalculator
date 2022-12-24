@@ -1,0 +1,39 @@
+
+
+# Purpose
+
+This program is the Project2 RPNCalc Phase 1.
+
+it contains 1 class DatumStack and 1 paser.cpp which implements the parserRString function.
+
+
+# Acknowledgements
+
+the DatumStack is implemented by C++ STL < list >.
+
+# FILES
+
+DatumStack.h  : the head file that defines the * DatumStack * 's  basic structure and interfaces.
+
+DatumStack.cpp  : implementations of  * DatumStack *
+
+parser.cpp  : implementations of  * string parseRString(istream& input) * 
+
+unit_tests.h : the unit test functions of  * DatumStack * and * parseRString *  it should be included in unit_test_driver.cpp.
+
+unit_test_driver.cpp: a simple driver that calls all the unit_test functions in "unit_tests.h".
+
+Makefile  :Used to make compilation and unit testing, creates an  execution of unit test called "unit_test".
+
+
+
+# COMPILE &RUN
+
+type "make" to use the makefile to build the project  and then run unit_test
+# Test
+
+The test code is in the unit_tests.h 
+
+All of the interfaces has been tested, including some edge tests:
+1.	try top() from an empty stack
+2.	pop from an empty stack

@@ -1,0 +1,11 @@
+{ add.cylc } file
+clear
+{ #t { 1 2 + } { 2 1 - } if }
+exec
+3
+==
+print
+8
+{ n_fibs.cylc }
+file
+quit

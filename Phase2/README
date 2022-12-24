@@ -1,0 +1,132 @@
+/**********************************************************
+* Project 2: CalcYouLater
+* CS 15
+* README
+*
+*********************************************************/
+
+# Purpose
+
+This program is the Project2 CalcYouLater Phase 2.
+This is a Reverse Polish Notation calculator, which supports all the commands 
+(except set var and get var) in this assignment.
+
+it contains 2 class DatumStack RPNCalc and 1 paser.cpp which implements the 
+parserRString function.
+
+# Acknowledgements
+
+the DatumStack is implemented by C++ STL < list >.
+see: [cppreference.com]
+
+
+
+
+# FILES
+
+DatumStack.h  : the head file that defines the DatumStack's  basic structure
+and interfaces.
+
+DatumStack.cpp  : implementations of  DatumStack
+
+RPNCalc.h: the head file that defines the RPNCalc’s basic structure and 
+interfaces.
+
+RPNCalc.cpp: implementations of  RPNCalc
+
+parser.cpp  : implementations of string parseRString(istream& input)
+
+unit_tests.h : the unit test functions of  DatumStack  and parseRString 
+and RPNCalc.All the private interface of RPNCalc need to be change 
+into public if you want to run the whole unit test.
+
+Makefile  :Used to make compilation and unit testing
+
+add.cylc: a test cylc file. 2 add operations are in it;
+
+fact.cylc a test cylc file. This will compute the N! ( before exec this file ,
+ you need push a number N in the stack )
+
+fib.cylc: a test cylc file . This will compute the fib(N) ( before exec this
+ file , you need push a number N in the stack )
+
+n_fibs.cylc: a test cylc file . This will compute the fib(0)-fib(N) ( before
+ exec this file , you need push a number N in the stack )
+
+mytest.cylc: my own test file.
+
+cylc: an executable file , that could make the .cly file to be .clyc file. 
+Our program only support the .clyc file! But you can use command:
+  ./cylc  xxx.cyl  to convert the xxx.cyl to xxx.cylc
+
+
+
+# COMPILE &RUN
+     - Compile using
+            make CalcYouLater
+     - run executable with
+            ./CalcYouLater 
+If you have some .cylc test files, you can use redirect to execute them
+by this program. The command is :   ./CalcYouLater < your_test_cylc_file.cylc
+
+
+
+#Data Structures and Algorithm
+I use a stack data structure (base on a C++ STL list) to implement the 
+DatumStack, whose template argument is Datum type. Stack is a Last in,
+ First out data structure (LIFO). 
+
+The Reverse Polish Notation has a good property that once we meet a binary
+operator, the 2 operands of this operator is just the top 2 elements 
+on the stack. 
+So using a Stack data structure can complete the operation well.
+
+Reverse Polish Notation is one of the solutions to implement a program 
+language. Some other solutions could be more complex.
+E.g. using the Pushdown Automaton to generate the Abstract Tree 
+of the language. This solution is often used by some modern compiler, 
+but it is too complex to understand.
+Also there are 2 convenient tools called "Flex” and "Bison” to 
+help us finish this task and build our own program language. 
+That is so amazing.
+
+#Test
+The test code is in the unit_tests.h 
+
+I have tested the DatumStack and parser in Phase 1
+There are the tests of RPNCalc class
+When testing ,I make all the functions of RPNCalc in public.
+This aim to make
+ them could be accessible. After all the test passed, these functions will be 
+made in private.
+1.first, I create a empty execCommands() function , and call run() to test if 
+this function could exec successfully
+2.Then I implemented the "quit” command, and test if it works.
+3.Then I implement the simple commands "drop” "dup” "print” "
+clear” "N” "#t” "f” "{ rstring }”
+"not” "swap""print”. And test them one by one after implementing each. 
+The "print” is very useful when check the result of each commands.
+The method I test these functions is in that way:
+Make a string that contains the commands I want to test, and create a 
+istringstreamby this string.
+Call execCommands(inputstream) function, pass the istringstream to it. It will
+Read and execute the commands in the stream.
+4.there are some edge test when in procedure 3:
+drop from an empty stack, check if it could catch an exception
+dup from an empty stack, check if it could catch an exception
+"not” from an empty stack. check if it could catch an exception
+"not” on a non bool Datum. check if it could catch an exception
+"swap” from an empty stack or a stack that only has 1 Datum. 
+check if it could catch an exception
+5.Then I test the command + - * / mod with some exception tests
+(operands with non int)
+6.Test the command < > <= >= == with some exception tests.
+(operands with non int)
+7.Test the command "exec” including an exception test with 
+exec a non rstring
+8.Test the command "file” including exception tests with unopenable 
+file and non rstring
+9.Test the command "if”, pass different condition to test if the right 
+branch is executed.
+And then pass wrong type Datum, check if it catch an exception.
+10.Type an unimplemented command ,check if it can print error message.
